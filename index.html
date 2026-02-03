@@ -55,6 +55,7 @@ h<!DOCTYPE html>
     <h1> I like you. Will you be my Valentine? 💙 </h1>
     <button class="yes" onclick="yesClicked()">Yes</button>
     <button class="no" onclick="noClicked()">No</button>
+    <button class="no" id="noBtn">No</button>
     <p id="response"></p>
   </div>
 
@@ -68,6 +69,17 @@ h<!DOCTYPE html>
       document.getElementById("response").innerHTML =
         "That's crazy. Try again 🖕🏾🖕🏾";
     }
+
+    const noBtn = document.getElementById("noBtn");
+
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  });
   </script>
 </body>
 </html>
