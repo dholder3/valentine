@@ -49,18 +49,55 @@
       border: 2px solid white;
     }
     .heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 24px;
-  animation: floatUp 5s linear forwards;
-}
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 5s linear forwards;
+    }
 
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
-}
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    /* ---- PHOTO PAN DOWN STYLES ----
+       The photo starts slightly above and invisible (opacity:0).
+       When the .visible class is added it fades in and translates downward into place.
+    */
+    #photo {
+      /* keep the element in the layout so transitions work */
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+
+      /* start off slightly above and invisible */
+      transform: translateY(-40px);
+      opacity: 0;
+
+      /* animate transform and opacity */
+      transition: transform 800ms cubic-bezier(.22,.9,.35,1), opacity 500ms ease;
+      pointer-events: none; /* prevent clicks while hidden */
+    }
+
+    /* toggling this will "pan down" into place */
+    #photo.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* OPTIONAL: continuous pan down (uncomment to use instead)
+    @keyframes panDown {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+    #photo.pan-down {
+      animation: panDown 4s linear forwards;
+    }
+    */
   </style>
 </head>
 <body>
@@ -70,41 +107,52 @@
     <button class="yes" onclick="yesClicked()">Yes</button>
     <button class="no" id="noBtn">No</button>
     <p id="response"></p>
+    <!-- move photo into the card so it appears in context -->
+    <img id="photo" src="us.jpg" alt="Us" />
   </div>
   
-  <img id="photo" src="us.jpg" style="display:none; width:100%; border-radius:12px; margin-top:20px;">
-
   <script>
     function yesClicked() {
-  document.getElementById("response").innerHTML =
-    "Thought so 😘";
-  document.getElementById("bgMusic").play();
-  document.getElementById("photo").style.display = "block";
-}
+      document.getElementById("response").innerHTML = "Thought so 😘";
+      document.getElementById("bgMusic").play();
+
+      // 1) Show and trigger the "pan down" transition
+      const photo = document.getElementById("photo");
+      // ensure starting state (if user clicked multiple times)
+      photo.classList.remove("visible");
+      // force reflow so transition runs if toggled quickly
+      void photo.offsetWidth;
+      // add class that moves it down into place
+      photo.classList.add("visible");
+
+      // If you want a continuous pan-off-screen instead, use:
+      // photo.classList.add("pan-down"); // and uncomment the CSS keyframes above
+    }
 
     const noBtn = document.getElementById("noBtn");
 
-  noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
-    noBtn.style.position = "absolute";
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
-  });
-      setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
 
-    setTimeout(() => heart.remove(), 5000);
-  }, 500);
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤���";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, 500);
   </script>
-</body>
-  <audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
 
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</body>
 </html>
