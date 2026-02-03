@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be My Valentine ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .yes {
+      background-color: #fff;
+      color: #ff4d6d;
+      font-weight: bold;
+    }
+
+    .no {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Will you be my Valentine? 💕</h1>
+    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="no" onclick="noClicked()">No</button>
+    <p id="response"></p>
+  </div>
+
+  <script>
+    function yesClicked() {
+      document.getElementById("response").innerHTML =
+        "Best decision you’ve ever made 😘❤️";
+    }
+
+    function noClicked() {
+      document.getElementById("response").innerHTML =
+        "Wrong answer. Try again 😏";
+    }
+  </script>
+</body>
+</html>
