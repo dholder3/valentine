@@ -2,7 +2,7 @@ h<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Read Me💙🌹</title>
+  <title>Read Me🌹</title>
   <style>
     body {
       margin: 0;
@@ -71,12 +71,14 @@ h<!DOCTYPE html>
     <p id="response"></p>
   </div>
   
+  <img id="photo" src="us.jpg" style="display:none; width:100%; border-radius:12px; margin-top:20px;">
 
   <script>
     function yesClicked() {
   document.getElementById("response").innerHTML =
-    "Yeah..thought so 😘";
+    "Thought so 😘";
   document.getElementById("bgMusic").play();
+  document.getElementById("photo").style.display = "block";
 }
 
     const noBtn = document.getElementById("noBtn");
